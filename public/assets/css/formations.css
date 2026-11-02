@@ -1,0 +1,101 @@
+/* Autres Formations - Timeline styles */
+.formations .timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-top: 0.5rem;
+}
+.formations .timeline-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+.formations .timeline-badge {
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--bs-primary, #0d6efd);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 1.15rem;
+  box-shadow: 0 6px 18px rgba(13,110,253,0.12);
+}
+.formations .timeline-content {
+  flex: 1;
+  border: none;
+  border-left: 3px solid rgba(13,110,253,0.08);
+  overflow: hidden;
+  background: transparent;
+}
+.formations .timeline-content .card-body {
+  padding: 0.9rem 1rem;
+}
+.formations .timeline .card-title {
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin-bottom: 0.25rem;
+}
+.formations .timeline .small {
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+.formations .timeline ul {
+  margin: 0;
+  padding-left: 1rem;
+}
+@media (min-width: 992px) {
+  .formations .timeline-item {
+    align-items: flex-start;
+  }
+  .formations .timeline {
+    gap: 1.5rem;
+  }
+}
+/* Subtle card shadow override to match site */
+.formations .card.shadow-sm {
+  background: var(--bs-light, #fff);
+  border: 0;
+}
+
+/* Skills-specific adjustments placed here to avoid editing main.css */
+.skills .progress {
+  margin-bottom: 0.55rem; /* tighter spacing */
+}
+.skills h3 { margin-top: 0; }
+.skills h5 { margin-bottom: 0.5rem; }
+.skills .badge { font-size: 0.85rem; }
+
+/* Change primary badge color in skills section to a slightly darker blue */
+.skills .badge.bg-primary {
+  background-color: #0b5ed7 !important;
+  border-color: #0b5ed7 !important;
+}
+
+/* Responsive: show compact accordions on small screens */
+.skills .accordion .accordion-button {
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+}
+.skills .accordion-body { padding: 0.5rem 1rem; }
+
+/* Soft Skills micro-interactions */
+.skills .soft-badge {
+  cursor: pointer;
+  transition: transform 220ms cubic-bezier(.2,.8,.2,1), box-shadow 220ms ease, background-color 220ms ease;
+  display: inline-block;
+}
+.skills .soft-badge:focus {
+  outline: 3px solid rgba(11,94,215,0.12);
+  outline-offset: 2px;
+}
+.skills .soft-badge:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 10px 24px rgba(12,12,12,0.08);
+}
+
+/* Ensure AOS animations for badges are visible (tiny stagger) */
+.skills .soft-badge[data-aos] { will-change: transform, opacity; }
+
+
