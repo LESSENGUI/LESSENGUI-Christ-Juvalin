@@ -14,7 +14,7 @@ const RATE_LIMIT_MAX_REQUESTS = 5;
 const IDEMPOTENCY_WINDOW_MS = 24 * 60 * 60 * 1000;
 const MAX_TRACKED_CLIENTS = 5000;
 const MAX_TRACKED_SUBMISSIONS = 10000;
-const CONTACT_RECIPIENT = "christlessengui01@gmail.com";
+const RESEND_SENDER = "onboarding@resend.dev";
 
 type RateLimitEntry = { count: number; expiresAt: number };
 type SubmissionResult = { success: true; confirmationSent: boolean };
@@ -52,7 +52,8 @@ function isAllowedOrigin(request: Request) {
     );
   }
 
-  const siteUrl = process.env.SITE_URL;
+  const siteUrl =
+    process.env.URL_DU_SITE?.trim() || process.env.SITE_URL?.trim();
   try {
     const allowedOrigins = new Set([
       new URL(siteUrl || "https://lessengui-christ-juvalin.vercel.app")
@@ -185,20 +186,15 @@ function parseContactMessage(value: unknown) {
 
 function getResendConfiguration() {
   const apiKey = process.env.RESEND_API_KEY?.trim();
-  const from = process.env.RESEND_FROM_EMAIL?.trim();
-  const recipient = process.env.CONTACT_EMAIL?.trim() || CONTACT_RECIPIENT;
-  const senderPattern = /^(?:"?[^<>"]+"?\s*<)?[^\s<>@]+@[^\s<>@]+\.[^\s<>@]+>?$/;
+  const recipient = process.env.CONTACT_EMAIL?.trim();
 
   if (!apiKey || !/^re_[A-Za-z0-9_]+$/.test(apiKey)) {
     return null;
   }
-  if (!from || !senderPattern.test(from)) {
+  if (!recipient || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(recipient)) {
     return null;
   }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(recipient)) {
-    return null;
-  }
-  return { apiKey, from, recipient };
+  return { apiKey, from: RESEND_SENDER, recipient };
 }
 
 async function sendContactEmails(

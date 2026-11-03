@@ -5250,6 +5250,204 @@ section.section {
   padding-top: 3px;
 }
 
+.profile-highlights-section {
+  padding-top: 58px;
+  padding-bottom: 66px;
+  background: #fff;
+}
+
+.profile-highlights-section .section-heading {
+  max-width: 700px;
+  margin-bottom: 26px;
+}
+
+.profile-modal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 205px), 1fr));
+  gap: 13px;
+}
+
+.profile-modal-card {
+  display: flex;
+  min-height: 174px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 13px;
+  padding: 18px;
+  border: 1px solid #e1ece5;
+  border-radius: 15px;
+  background: linear-gradient(150deg, #fff, #f7fbf8);
+  color: #203d2f;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.profile-modal-card:hover,
+.profile-modal-card:focus-visible {
+  border-color: #9bd5b0;
+  box-shadow: 0 14px 30px rgba(20, 67, 41, 0.09);
+  transform: translateY(-3px);
+}
+
+.profile-modal-card:focus-visible,
+.profile-training-card:focus-visible,
+.profile-modal-close:focus-visible {
+  outline: 3px solid rgba(22, 139, 85, 0.35);
+  outline-offset: 3px;
+}
+
+.profile-modal-card-index {
+  color: #168b55;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.profile-modal-card > strong {
+  color: #173a2b;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.profile-modal-card-action {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: auto;
+  color: #147247;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.profile-interests-block {
+  margin-top: 35px;
+}
+
+.profile-interests-block > h3 {
+  margin: 0;
+  color: #173a2b;
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.profile-training-heading {
+  max-width: 720px;
+}
+
+.profile-training-card {
+  width: 100%;
+  min-height: 166px;
+  align-items: flex-start;
+  border: 1px solid #e1ece5;
+  color: #193039;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.profile-training-card > strong {
+  color: #193039;
+  font-family: var(--font-heading);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.profile-modal {
+  position: fixed;
+  width: min(560px, calc(100vw - 32px));
+  max-width: none;
+  max-height: min(82vh, 760px);
+  padding: 0;
+  overflow: auto;
+  border: 1px solid #dcebe1;
+  border-radius: 22px;
+  background: #fff;
+  color: #193039;
+  box-shadow: 0 30px 90px rgba(5, 28, 17, 0.28);
+}
+
+.profile-modal::backdrop {
+  background: rgba(5, 20, 15, 0.7);
+  backdrop-filter: blur(5px);
+}
+
+.profile-modal-content {
+  position: relative;
+  padding: clamp(26px, 5vw, 42px);
+}
+
+.profile-modal-close-form {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.profile-modal-close {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid #e1ece5;
+  border-radius: 50%;
+  background: #f7fbf8;
+  color: #173a2b;
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.profile-modal-content > .eyebrow {
+  display: block;
+  padding-right: 42px;
+  color: #168b55;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.profile-modal-content h2 {
+  margin: 14px 36px 12px 0;
+  color: #173a2b;
+  font-family: var(--font-heading);
+  font-size: clamp(23px, 4vw, 32px);
+  line-height: 1.2;
+}
+
+.profile-modal-content p,
+.profile-modal-content li {
+  color: #53665e;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.profile-modal-content ul {
+  display: grid;
+  gap: 8px;
+  margin: 20px 0 0;
+  padding-left: 20px;
+}
+
+.profile-modal-content > .button {
+  margin-top: 22px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .profile-modal-card,
+  .profile-training-card {
+    transition: none;
+  }
+
+  .profile-modal-card:hover,
+  .profile-training-card:hover {
+    transform: none;
+  }
+}
+
 @media (max-width: 960px) {
   .profile-about-grid {
     grid-template-columns: minmax(240px, 0.72fr) minmax(0, 1.28fr);
@@ -5302,6 +5500,11 @@ section.section {
   .profile-training-section {
     padding-top: 52px;
     padding-bottom: 58px;
+  }
+
+  .profile-highlights-section {
+    padding-top: 42px;
+    padding-bottom: 48px;
   }
 
   .profile-training-section .training-grid {

@@ -3,18 +3,17 @@ import { notFound } from "next/navigation";
 import { CinematicHero } from "@/components/cinematic-hero";
 import { ContactForm } from "@/components/contact-form";
 import { PortfolioFilter } from "@/components/portfolio-filter";
+import { ProfileHighlights } from "@/components/profile-highlights";
 import { createPageMetadata } from "@/lib/site-seo";
 import {
   aiProfiles,
   associativeCommitments,
   education,
   experiences,
-  interests,
   otherAssociativeRoles,
   resumeDocuments,
   services,
   serviceDetails,
-  skillCategories,
   stories,
   trainings,
 } from "@/lib/content";
@@ -38,17 +37,17 @@ const sectionMetadata: Record<MenuPageSlug, string> = {
 
 const menuPages = {
   "a-propos": {
-    eyebrow: "À propos · Christ Juvalin LESSENGUI",
-    title: "L’ingénierie au service",
-    highlight: "de l’impact.",
+    eyebrow: "À propos · parcours & convictions",
+    title: "La technique au service",
+    highlight: "d’un impact concret.",
     description:
-      "Un parcours à la croisée de la maintenance industrielle, de l’innovation et de l’engagement pour la jeunesse.",
-    backgroundImage: "/assets/img/hero-bg.jpg",
-    portraitImage: "/img/Lessengui%20img2.jpg",
+      "Technicien supérieur en maintenance industrielle à Brazzaville, je relie expertise technique, innovation et engagement pour contribuer au développement des jeunes et des communautés.",
+    backgroundImage: "/img/christ1.jpg",
+    portraitImage: "/img/Lessengui%20img1.jpg",
     portraitAlt: "Portrait de Christ Juvalin LESSENGUI",
     facts: [
-      { value: "Congo", label: "Originaire de la République du Congo" },
-      { value: "Ingénierie", label: "Maintenance industrielle" },
+      { value: "Brazzaville", label: "République du Congo" },
+      { value: "Maintenance", label: "Industrie & électromécanique" },
       { value: "Innovation", label: "Technologie et éducation" },
       { value: "Engagement", label: "Jeunesse et développement" },
     ],
@@ -217,19 +216,6 @@ function TimelineCard({
   );
 }
 
-function CompetencyCategories() {
-  return (
-    <div className="competency-grid">
-      {skillCategories.map((category) => (
-        <article className="competency-card" key={category.title}>
-          <h3>{category.title}</h3>
-          <ul>{category.skills.map((skill) => <li key={skill}>{skill}</li>)}</ul>
-        </article>
-      ))}
-    </div>
-  );
-}
-
 function ProfilePage() {
   return (
     <>
@@ -276,51 +262,13 @@ function ProfilePage() {
               <div><span>Engagement</span><strong>Jeunesse & développement</strong></div>
               <div><span>Langues</span><strong>Français, anglais, 4 langues nationales</strong></div>
             </div>
-            <div className="profile-content-block">
-              <h3>Compétences par catégories</h3>
-              <CompetencyCategories />
-            </div>
-            <div className="profile-content-block profile-interests-block">
-              <h3>Centres d’intérêt</h3>
-              <div className="about-facts profile-interests">
-              {interests.map((interest) => (
-                <div key={interest}><strong>{interest}</strong></div>
-              ))}
-              </div>
-            </div>
             <a className="button button-primary" href="/documents_pdf/CV%20LESSENGUI%20Christ%20Juvalin_French.pdf">
               CV en français <span aria-hidden="true">↓</span>
             </a>
           </div>
         </div>
       </section>
-
-      <section className="section experiences-section profile-training-section">
-        <div className="container">
-          <SectionHeading eyebrow="Formations complémentaires" title="Apprendre et transmettre">
-            Parcours de formation en développement, gouvernance, gestion de projets, éducation et leadership.
-          </SectionHeading>
-          <div className="training-grid">
-            {trainings.map((item) => (
-              <article className="training-card" key={`${item.date}-${item.title}`}>
-                <span>{item.date}</span>
-                <h4>{item.title}</h4>
-                <p>{item.organization}</p>
-                {item.certificate ? (
-                  <a
-                    className="text-link"
-                    href={`/documents_pdf/${encodeURIComponent(item.certificate)}`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Voir l’attestation <span aria-hidden="true">↗</span>
-                  </a>
-                ) : null}
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ProfileHighlights />
     </>
   );
 }

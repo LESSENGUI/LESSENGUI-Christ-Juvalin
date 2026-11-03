@@ -61,16 +61,15 @@ sans troncature dans la limite technique d’une requête de 1 Mio.
 Pour le développement local, renseigner dans `.env.local` :
 
 - `RESEND_API_KEY` : clé API Resend, uniquement côté serveur ;
-- `RESEND_FROM_EMAIL` : adresse expéditrice autorisée dans Resend, sur un domaine vérifié ;
+- l’adresse expéditrice est fixée à `onboarding@resend.dev` dans la route de contact ;
 - `CONTACT_EMAIL` : `christlessengui01@gmail.com` ;
-- `SITE_URL` : URL HTTPS canonique du site.
+- `URL_DU_SITE` : URL HTTPS canonique du site (`SITE_URL` reste accepté en alias).
 
 Ne jamais versionner `.env.local` ni transmettre la clé API dans le code ou le navigateur.
 En production, définir ces variables dans les paramètres Vercel (`Production`, ainsi que
-`Preview` si nécessaire), puis redéployer. Vérifier le domaine expéditeur dans Resend et
-ajouter exactement les enregistrements DNS fournis dans le tableau de bord Resend ; ne
-publier le domaine comme expéditeur qu’après son statut vérifié. Aucun nom de domaine ni
-enregistrement DNS ne doit être deviné.
+`Preview` si nécessaire), puis redéployer. L’adresse de test `onboarding@resend.dev` peut
+être limitée par Resend aux destinataires autorisés du compte ; pour envoyer à d’autres
+destinataires, vérifier un domaine dans Resend et configurer son adresse expéditrice.
 
 Les profils Facebook, LinkedIn, X, WhatsApp et TikTok réutilisent les liens déjà présents
 dans le site. `FACEBOOK_URL`, `LINKEDIN_URL`, `X_URL`, `WHATSAPP_URL` et `TIKTOK_URL`

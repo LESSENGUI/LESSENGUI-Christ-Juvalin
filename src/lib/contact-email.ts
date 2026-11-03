@@ -40,8 +40,11 @@ function configuredUrl(value: string, key: string) {
 }
 
 function getSocialLinks(): ContactSocialLink[] {
-  const configuredSiteUrl = process.env.SITE_URL?.trim() || SITE_URL;
-  const siteUrl = configuredUrl(configuredSiteUrl, "SITE_URL");
+  const configuredSiteUrl =
+    process.env.URL_DU_SITE?.trim() ||
+    process.env.SITE_URL?.trim() ||
+    SITE_URL;
+  const siteUrl = configuredUrl(configuredSiteUrl, "URL_DU_SITE");
   const siteProfiles: Record<string, string> = {
     Facebook: "FACEBOOK_URL",
     LinkedIn: "LINKEDIN_URL",
@@ -173,8 +176,10 @@ export function createVisitorConfirmation(message: ContactMessage) {
     .join("\n");
   const subjectHtml = escapeHtml(message.subject);
   const siteUrl = configuredUrl(
-    process.env.SITE_URL?.trim() || SITE_URL,
-    "SITE_URL",
+    process.env.URL_DU_SITE?.trim() ||
+      process.env.SITE_URL?.trim() ||
+      SITE_URL,
+    "URL_DU_SITE",
   );
   const html = emailFrame(`
     <h1 style="margin:0 0 20px;color:#173b2a;font-size:22px;line-height:1.3;">Confirmation de réception</h1>
