@@ -195,10 +195,7 @@ function getResendConfiguration() {
   if (!from || !senderPattern.test(from)) {
     return null;
   }
-  if (
-    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(recipient) ||
-    recipient.toLowerCase() !== CONTACT_RECIPIENT
-  ) {
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(recipient)) {
     return null;
   }
   return { apiKey, from, recipient };

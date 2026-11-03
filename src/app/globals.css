@@ -3109,6 +3109,16 @@ summary:focus-visible {
   font-size: 15px;
 }
 
+section.section {
+  padding-block: 38px;
+}
+
+@media (max-width: 700px) {
+  section.section {
+    padding-block: 26px;
+  }
+}
+
 @media (max-width: 900px) {
   .detail-layout,
   .detail-content {
@@ -3579,7 +3589,7 @@ summary:focus-visible {
   display: grid;
   grid-template-columns: minmax(245px, 0.37fr) minmax(0, 1fr);
   align-items: stretch;
-  gap: clamp(14px, 2vw, 24px);
+  gap: 0;
   perspective: 1500px;
 }
 
@@ -3988,7 +3998,7 @@ summary:focus-visible {
 
   .home-hero__cards {
     grid-template-columns: minmax(215px, 0.7fr) minmax(0, 1.3fr);
-    gap: 14px;
+    gap: 0;
   }
 
   .home-hero__profile-card,
@@ -4090,7 +4100,7 @@ summary:focus-visible {
 
   .home-hero__cards {
     grid-template-columns: 1fr;
-    gap: 13px;
+    gap: 0;
   }
 
   .home-hero__profile-scene {
