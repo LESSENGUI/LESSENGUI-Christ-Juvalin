@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { CinematicHero } from "@/components/cinematic-hero";
 import { serviceDetails } from "@/lib/content";
+import { createPageMetadata } from "@/lib/site-seo";
 
 const serviceHeroLines: Record<string, string> = {
   "innovation-technologique": "L’innovation au service de l’impact.",
@@ -21,6 +22,25 @@ const serviceHeroImages: Record<string, string> = {
 
 export function generateStaticParams() {
   return serviceDetails.map((service) => ({ slug: service.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const service = serviceDetails.find((entry) => entry.slug === slug);
+
+  if (!service) {
+    notFound();
+  }
+
+  return createPageMetadata({
+    title: service.title,
+    description: service.summary,
+    pathname: `/services/${service.slug}`,
+  });
 }
 
 export default async function ServiceDetailPage({

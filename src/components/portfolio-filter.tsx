@@ -8,7 +8,7 @@ const baseCategories = ["Tous", "Applications", "Produits", "Certificats"] as co
 
 const publicationProjects = publications.map((publication) => ({
   title: publication.title,
-  category: "Ouvrages publiés",
+  category: publication.status.startsWith("Publié") ? "Ouvrages publiés" : "Manuscrits en cours",
   image: publication.image ?? publication.editions[0]?.image,
   href: publication.href,
   description: [
@@ -22,7 +22,7 @@ const publicationProjects = publications.map((publication) => ({
 
 export function PortfolioFilter({ includePublishedWorks = false }: { includePublishedWorks?: boolean }) {
   const categories = includePublishedWorks
-    ? [...baseCategories, "Ouvrages publiés"]
+    ? [...baseCategories, "Ouvrages publiés", "Manuscrits en cours"]
     : baseCategories;
   const [activeCategory, setActiveCategory] = useState<string>("Tous");
   const visibleProjects = useMemo(() => {

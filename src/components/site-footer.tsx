@@ -1,35 +1,8 @@
 import Link from "next/link";
 import { SiteLanguage } from "@/components/site-language";
+import { socialLinks, type SocialIconName } from "@/lib/social-links";
 
-const socialLinks = [
-  {
-    name: "Facebook",
-    href: "https://www.facebook.com/christjuvalin.lessengui",
-    icon: "facebook",
-  },
-  {
-    name: "LinkedIn",
-    href: "https://www.linkedin.com/in/christ-juvalin-lessengui-aa4843299",
-    icon: "linkedin",
-  },
-  {
-    name: "X",
-    href: "https://x.com/LESSENGUI_C_J",
-    icon: "x",
-  },
-  {
-    name: "WhatsApp",
-    href: "https://wa.me/message/2VWPINXB6L34A1",
-    icon: "whatsapp",
-  },
-  {
-    name: "TikTok",
-    href: "https://tiktok.com/@christjuvalin1",
-    icon: "tiktok",
-  },
-] as const;
-
-function SocialIcon({ name }: { name: (typeof socialLinks)[number]["icon"] }) {
+function SocialIcon({ name }: { name: SocialIconName }) {
   const commonProps = {
     "aria-hidden": true as const,
     fill: "currentColor",

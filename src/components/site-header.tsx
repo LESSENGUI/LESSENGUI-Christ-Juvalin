@@ -19,7 +19,7 @@ export function SiteHeader() {
           <strong>
             Christ Juvalin <em>LESSENGUI</em>
           </strong>
-          <small>Ingénieur&nbsp; · &nbsp;Leader&nbsp; · &nbsp;Citoyen du monde</small>
+          <small>Technicien supérieur&nbsp; · &nbsp;Leader&nbsp; · &nbsp;Citoyen du monde</small>
         </span>
       </a>
 

@@ -1,6 +1,7 @@
 import Image from "next/image";
-import { CinematicHero } from "@/components/cinematic-hero";
 import { ContactForm } from "@/components/contact-form";
+import { HomeAboutMotion } from "@/components/home-about-motion";
+import { HomeHero } from "@/components/home-hero";
 import { PortfolioFilter } from "@/components/portfolio-filter";
 import { ScrollTimeline } from "@/components/scroll-timeline";
 import {
@@ -13,20 +14,30 @@ import {
   stories,
   trainings,
 } from "@/lib/content";
+import { createPageMetadata } from "@/lib/site-seo";
+
+export const metadata = createPageMetadata({
+  title: "Christ Juvalin LESSENGUI | Technicien supérieur, leader et innovateur au Congo",
+  description:
+    "Christ Juvalin LESSENGUI est technicien supérieur en maintenance industrielle et électromécanicien, jeune leader et acteur du développement au Congo et en Afrique.",
+  pathname: "/",
+});
 
 function SectionHeading({
   eyebrow,
   title,
   children,
+  id,
 }: {
   eyebrow: string;
   title: string;
   children?: React.ReactNode;
+  id?: string;
 }) {
   return (
     <div className="section-heading">
       <span className="eyebrow">{eyebrow}</span>
-      <h2>{title}</h2>
+      <h2 id={id}>{title}</h2>
       {children ? <p>{children}</p> : null}
     </div>
   );
@@ -153,13 +164,9 @@ export default function Home() {
   return (
     <>
       <main>
-        <CinematicHero
-          eyebrow="Ingénieur · Leader · Citoyen du monde"
-          title="Formez pour"
-          highlight="transformer."
-          description="Je suis Christ Juvalin LESSENGUI, ingénieur en maintenance industrielle. Je fais grandir les compétences et transforme les idées en solutions utiles pour l’Afrique."
-          portraitImage="/img/christ1.jpg"
-          portraitAlt="Christ Juvalin LESSENGUI prenant la parole lors d’un événement"
+        <HomeHero
+          eyebrow="Technicien supérieur · Leader · Citoyen du monde"
+          description="Technicien supérieur en maintenance industrielle et électromécanicien, je fais grandir les compétences et transforme les idées en solutions utiles pour l’Afrique."
           links={[
             { label: "Découvrir mon parcours", href: "#resume" },
             { label: "Explorer mes projets", href: "#portfolio", variant: "outline" },
@@ -171,49 +178,97 @@ export default function Home() {
             { value: "Brazzaville", label: "Congo · Afrique" },
           ]}
         />
-        <section className="section about-section" id="about">
-          <div className="container about-grid">
-            <div className="about-photo-wrap">
-              <Image
-                src="/img/Lessengui%20img2.jpg"
-                alt="Portrait de Christ Juvalin LESSENGUI"
-                width={1996}
-                height={2880}
-                sizes="(max-width: 760px) 90vw, 36vw"
-                className="about-photo"
-              />
-              <div className="photo-label"><b>CJ</b><span>Engagé pour une Afrique<br />compétente et innovante</span></div>
-            </div>
-            <div className="about-copy">
-              <SectionHeading eyebrow="À propos" title="Un parcours au croisement de la technique et de l’impact">
-                Ingénierie, innovation et engagement au service des communautés.
-              </SectionHeading>
-              <p>
-                Christ Juvalin LESSENGUI est un jeune Congolais, titulaire d’une
-                licence en maintenance industrielle à l’École Nationale Supérieure
-                Polytechnique de l’Université Marien Ngouabi. Passionné de technologie,
-                d’innovation et de leadership des jeunes, il contribue à des projets
-                à portée sociale et éducative.
-              </p>
-              <p>
-                Il participe à la conception de solutions en business intelligence,
-                codage, cybersécurité et robotique, ainsi qu’à des programmes STEM
-                pour les jeunes, notamment les filles. Il contribue également à la
-                production de ressources pédagogiques sur l’égalité filles-garçons
-                en éducation avec l’IFEF et l’OIF.
-              </p>
-              <div className="about-facts">
-                <div><span>Formation</span><strong>Maintenance industrielle</strong></div>
-                <div><span>Implantation</span><strong>Brazzaville, Congo</strong></div>
-                <div><span>Engagement</span><strong>Jeunesse & développement</strong></div>
-                <div><span>Langues</span><strong>Français, anglais, langues nationales</strong></div>
+        <section className="section home-about" id="about" aria-labelledby="home-about-title">
+          <div className="container">
+            <header className="home-about__header">
+              <div>
+                <span className="home-about__eyebrow"><i /> 01 — À PROPOS</span>
+                <h2 id="home-about-title">
+                  La technique au service
+                  <span>de l’impact collectif.</span>
+                </h2>
               </div>
-              <a className="button button-primary" href="/documents_pdf/CV%20LESSENGUI%20Christ%20Juvalin_French.pdf">
-                CV en français <span aria-hidden="true">↓</span>
-              </a>
+              <p>
+                Un parcours qui relie maintenance industrielle, innovation et
+                engagement pour les communautés.
+              </p>
+            </header>
+
+            <div className="home-about__grid">
+              <figure className="home-about__visual">
+                <div className="home-about__portrait">
+                  <Image
+                    src="/img/Lessengui%20img2.jpg"
+                    alt="Christ Juvalin LESSENGUI en tenue professionnelle à Brazzaville"
+                    fill
+                    sizes="(max-width: 760px) 90vw, 42vw"
+                    className="home-about__image"
+                  />
+                  <span className="home-about__image-shade" aria-hidden="true" />
+                  <span className="home-about__orbit home-about__orbit--one" aria-hidden="true" />
+                  <span className="home-about__orbit home-about__orbit--two" aria-hidden="true" />
+                  <span className="home-about__portrait-index">CJ <i>·</i> 01</span>
+                </div>
+                <figcaption className="home-about__caption">
+                  <span className="home-about__caption-mark">CJ</span>
+                  <span>
+                    <strong>Christ Juvalin LESSENGUI</strong>
+                    <small>Brazzaville, République du Congo</small>
+                  </span>
+                  <span className="home-about__caption-dot" aria-label="Basé à Brazzaville" />
+                </figcaption>
+              </figure>
+
+              <div className="home-about__copy">
+                <div className="home-about__profile">
+                  <span className="home-about__profile-icon" aria-hidden="true">⌁</span>
+                  <div>
+                    <span>PROFIL TECHNIQUE</span>
+                    <strong>Technicien supérieur en maintenance industrielle</strong>
+                    <small>Électromécanicien · ENSP / Université Marien Ngouabi</small>
+                  </div>
+                </div>
+                <p>
+                  Je suis un jeune Congolais dont le parcours scientifique et
+                  technique s’est construit à Brazzaville, de la physique à la
+                  maintenance industrielle. Je m’intéresse à la fiabilité des
+                  équipements, au diagnostic et à l’amélioration des systèmes
+                  techniques.
+                </p>
+                <p>
+                  En parallèle, je contribue à des initiatives en technologie,
+                  business intelligence, cybersécurité, robotique et formation STEM.
+                  Mes engagements éducatifs et associatifs sont guidés par une même
+                  conviction : développer les compétences pour créer des solutions
+                  utiles et durables.
+                </p>
+
+                <div className="home-about__facts">
+                  <div>
+                    <span>01</span>
+                    <strong>Maintenance</strong>
+                    <small>Électromécanique & fiabilité</small>
+                  </div>
+                  <div>
+                    <span>02</span>
+                    <strong>Innovation</strong>
+                    <small>Numérique, BI & robotique</small>
+                  </div>
+                  <div>
+                    <span>03</span>
+                    <strong>Engagement</strong>
+                    <small>Jeunesse, éducation & STEM</small>
+                  </div>
+                </div>
+
+                <a className="button button-primary home-about__cv" href="/documents_pdf/CV%20LESSENGUI%20Christ%20Juvalin_French.pdf">
+                  Découvrir mon parcours <span aria-hidden="true">↗</span>
+                </a>
+              </div>
             </div>
           </div>
         </section>
+        <HomeAboutMotion />
 
         <section className="section journey-section home-journey-section" id="resume">
           <div className="container">
@@ -297,29 +352,33 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section skills-section home-skills-section" id="skills">
-          <div className="container skills-layout">
+        <section
+          className="section skills-section home-skills-section"
+          id="skills"
+          aria-labelledby="skills-heading"
+        >
+          <div className="container">
             <div className="skills-intro">
-              <SectionHeading eyebrow="Savoir-faire" title="Des compétences complémentaires">
-                Une base technique, des capacités de gestion et une expérience de mobilisation collective.
+              <SectionHeading
+                eyebrow="Savoir-faire"
+                title="Relier la technique, les projets et l’engagement"
+                id="skills-heading"
+              >
+                Des compétences construites par la formation, les expériences de terrain et les responsabilités collectives.
               </SectionHeading>
-              <div className="skills-intro-footer">
-                <span>Compétences techniques et humaines</span>
-                <a className="text-link" href="#skills">
-                  Parcourir le détail des compétences <span aria-hidden="true">→</span>
-                </a>
-              </div>
+              <p className="skills-context">
+                De la maintenance mécanique au suivi de projets, chaque domaine s’appuie sur des expériences et des formations présentées dans ce portfolio.
+              </p>
             </div>
             <div className="competency-grid">
               {skillCategories.map((category, index) => (
                 <article className="competency-card" key={category.title}>
                   <div className="competency-card-heading">
-                    <span className="competency-card-number">{String(index + 1).padStart(2, "0")}</span>
-                    <span className="competency-card-mark" aria-hidden="true">↗</span>
+                    <span className="competency-card-number">Domaine {String(index + 1).padStart(2, "0")}</span>
+                    <span className="competency-card-count">{category.skills.length} compétences</span>
                   </div>
                   <h3>{category.title}</h3>
                   <ul>{category.skills.map((skill) => <li key={skill}>{skill}</li>)}</ul>
-                  <span className="competency-card-count">{String(category.skills.length).padStart(2, "0")} compétences</span>
                 </article>
               ))}
             </div>
@@ -328,12 +387,12 @@ export default function Home() {
 
         <section className="section portfolio-section" id="portfolio">
           <div className="container">
-            <SectionHeading eyebrow="Réalisations" title="Projets, certificats et ressources">
-              Une sélection de projets techniques et de certifications présentés dans le portfolio.
+            <SectionHeading eyebrow="Réalisations" title="Projets, certificats et ouvrages publiés">
+              Parcourez les projets et certificats, puis découvrez les ouvrages publiés et les manuscrits en cours.
             </SectionHeading>
-            <PortfolioFilter />
+            <PortfolioFilter includePublishedWorks />
             <p className="portfolio-footnote">
-              Chaque fiche renvoie à une page détaillée du portfolio dans le nouveau site dynamique.
+              Ouvrez une fiche pour consulter ses détails ou suivez le lien d’un ouvrage publié vers sa page éditeur.
             </p>
           </div>
         </section>

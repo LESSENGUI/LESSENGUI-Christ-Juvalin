@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { CinematicHero } from "@/components/cinematic-hero";
 import { projectDetails } from "@/lib/content";
+import { createPageMetadata } from "@/lib/site-seo";
 
 const projectHeroLines: Record<string, string> = {
   "systeme-gmao-cloud": "Anticiper les pannes. Renforcer la performance.",
@@ -20,6 +21,25 @@ const projectHeroLines: Record<string, string> = {
 
 export function generateStaticParams() {
   return projectDetails.map((project) => ({ slug: project.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const project = projectDetails.find((entry) => entry.slug === slug);
+
+  if (!project) {
+    notFound();
+  }
+
+  return createPageMetadata({
+    title: project.title,
+    description: project.summary,
+    pathname: `/portfolio/${project.slug}`,
+  });
 }
 
 export default async function PortfolioDetailPage({

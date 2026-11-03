@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { CinematicHero } from "@/components/cinematic-hero";
 import { ContactForm } from "@/components/contact-form";
 import { PortfolioFilter } from "@/components/portfolio-filter";
+import { createPageMetadata } from "@/lib/site-seo";
 import {
   aiProfiles,
   associativeCommitments,
@@ -17,6 +18,23 @@ import {
   stories,
   trainings,
 } from "@/lib/content";
+
+const sectionMetadata: Record<MenuPageSlug, string> = {
+  "a-propos":
+    "Biographie et profil de Christ Juvalin LESSENGUI, technicien supérieur en maintenance industrielle et électromécanicien à Brazzaville, République du Congo.",
+  parcours:
+    "Formation scientifique et parcours professionnel de Christ Juvalin LESSENGUI à l’Université Marien Ngouabi et à l’ENSP de Brazzaville.",
+  experiences:
+    "Expériences professionnelles de Christ Juvalin LESSENGUI en maintenance mécanique, enseignement et gestion documentaire.",
+  projets:
+    "Projets numériques, certificats et ouvrages publiés de Christ Juvalin LESSENGUI, technicien supérieur et jeune leader congolais.",
+  services:
+    "Services en maintenance industrielle, innovation technologique, gestion de projets, développement digital et formation STEM.",
+  engagements:
+    "Engagements associatifs et leadership de Christ Juvalin LESSENGUI en faveur de la jeunesse et du développement au Congo.",
+  contact:
+    "Contacter Christ Juvalin LESSENGUI à Brazzaville pour une collaboration, un projet technique ou une initiative éducative.",
+};
 
 const menuPages = {
   "a-propos": {
@@ -641,6 +659,26 @@ function MenuPageContent({ slug }: { slug: MenuPageSlug }) {
 
 export function generateStaticParams() {
   return Object.keys(menuPages).map((section) => ({ section }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ section: string }>;
+}) {
+  const { section } = await params;
+  if (!Object.hasOwn(menuPages, section)) {
+    notFound();
+  }
+
+  const slug = section as MenuPageSlug;
+  const page = menuPages[slug];
+
+  return createPageMetadata({
+    title: page.eyebrow.split(" · ")[0],
+    description: sectionMetadata[slug],
+    pathname: `/${slug}`,
+  });
 }
 
 export default async function MenuSectionPage({

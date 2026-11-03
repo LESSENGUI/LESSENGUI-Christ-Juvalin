@@ -1,0 +1,33 @@
+# Christ Juvalin LESSENGUI
+
+> Site officiel de Christ Juvalin LESSENGUI, technicien supérieur congolais en maintenance industrielle et électromécanicien, engagé dans l’innovation, la formation STEM et le leadership des jeunes à Brazzaville.
+
+Les informations biographiques, expériences, formations, projets, engagements et publications présentés sur ce site sont publiés sous la responsabilité de Christ Juvalin LESSENGUI. Consulter les pages sources pour leur contexte et leurs détails.
+
+## Pages principales
+
+- [Accueil](https://lessengui-christ-juvalin.vercel.app/)
+- [À propos et biographie](https://lessengui-christ-juvalin.vercel.app/a-propos)
+- [Parcours et formation](https://lessengui-christ-juvalin.vercel.app/parcours)
+- [Expériences professionnelles](https://lessengui-christ-juvalin.vercel.app/experiences)
+- [Projets, certificats et ouvrages](https://lessengui-christ-juvalin.vercel.app/projets)
+- [Services et compétences](https://lessengui-christ-juvalin.vercel.app/services)
+- [Engagements et leadership](https://lessengui-christ-juvalin.vercel.app/engagements)
+- [Contact](https://lessengui-christ-juvalin.vercel.app/contact)
+- [Récits et initiatives](https://lessengui-christ-juvalin.vercel.app/stories/histoire-de-ma-vie)
+
+## Profil public
+
+- Nom : Christ Juvalin LESSENGUI
+- Localisation : Brazzaville, République du Congo
+- Domaines : maintenance industrielle, mécanique, gestion de projets, leadership, innovation numérique et formation STEM
+- Langue principale du site : français
+
+## Profils publics
+
+- [LinkedIn](https://www.linkedin.com/in/christ-juvalin-lessengui-aa4843299)
+- [Facebook](https://www.facebook.com/christjuvalin.lessengui)
+- [X](https://x.com/LESSENGUI_C_J)
+- [TikTok](https://tiktok.com/@christjuvalin1)
+
+Ce fichier aide les systèmes automatisés à découvrir les ressources du site ; il ne garantit ni indexation ni citation.

@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { CinematicHero } from "@/components/cinematic-hero";
 import { MemoirReader } from "@/components/memoir-reader";
+import { createPageMetadata } from "@/lib/site-seo";
 import {
   activityHighlights,
   associativeCommitments,
@@ -31,6 +32,25 @@ const storyHeroImages: Record<string, string> = {
 
 export function generateStaticParams() {
   return storyDetails.map((story) => ({ slug: story.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const story = storyDetails.find((entry) => entry.slug === slug);
+
+  if (!story) {
+    notFound();
+  }
+
+  return createPageMetadata({
+    title: story.title,
+    description: story.intro,
+    pathname: `/stories/${story.slug}`,
+  });
 }
 
 export default async function StoryDetailPage({
