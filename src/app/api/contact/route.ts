@@ -14,7 +14,7 @@ const RATE_LIMIT_MAX_REQUESTS = 5;
 const IDEMPOTENCY_WINDOW_MS = 24 * 60 * 60 * 1000;
 const MAX_TRACKED_CLIENTS = 5000;
 const MAX_TRACKED_SUBMISSIONS = 10000;
-const RESEND_SENDER = "onboarding@resend.dev";
+const DEFAULT_RESEND_SENDER = "onboarding@resend.dev";
 
 type RateLimitEntry = { count: number; expiresAt: number };
 type SubmissionResult = { success: true; confirmationSent: boolean };
@@ -187,14 +187,18 @@ function parseContactMessage(value: unknown) {
 function getResendConfiguration() {
   const apiKey = process.env.RESEND_API_KEY?.trim();
   const recipient = process.env.CONTACT_EMAIL?.trim();
+  const from = process.env.RESEND_FROM_EMAIL?.trim() || DEFAULT_RESEND_SENDER;
 
   if (!apiKey || !/^re_[A-Za-z0-9_]+$/.test(apiKey)) {
+    return null;
+  }
+  if (!from || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(from)) {
     return null;
   }
   if (!recipient || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(recipient)) {
     return null;
   }
-  return { apiKey, from: RESEND_SENDER, recipient };
+  return { apiKey, from, recipient };
 }
 
 async function sendContactEmails(
