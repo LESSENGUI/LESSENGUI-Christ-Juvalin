@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { CinematicHero } from "@/components/cinematic-hero";
+import { ExperienceLogo } from "@/components/experience-logo";
 import { MemoirReader } from "@/components/memoir-reader";
 import { createPageMetadata } from "@/lib/site-seo";
 import {
@@ -123,11 +124,14 @@ export default async function StoryDetailPage({
                       {experiences.map((item, index) => (
                         <article className="personal-journey-item" key={`${item.date}-${item.title}`}>
                           <span className="personal-journey-index">{String(index + 1).padStart(2, "0")}</span>
-                          <div>
-                            <span className="personal-journey-date">{item.date}</span>
-                            <h4>{item.title}</h4>
-                            <p>{item.place}</p>
-                            {item.details.map((detail) => <p className="personal-journey-detail" key={detail}>{detail}</p>)}
+                          <div className="personal-journey-experience-content">
+                            <ExperienceLogo logo={item.logo} name={item.place} initials={item.logoText} />
+                            <div>
+                              <span className="personal-journey-date">{item.date}</span>
+                              <h4>{item.title}</h4>
+                              <p>{item.place}</p>
+                              {item.details.map((detail) => <p className="personal-journey-detail" key={detail}>{detail}</p>)}
+                            </div>
                           </div>
                         </article>
                       ))}

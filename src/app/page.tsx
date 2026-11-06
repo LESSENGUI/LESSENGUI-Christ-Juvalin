@@ -1,9 +1,11 @@
 import Image from "next/image";
 import { ContactForm } from "@/components/contact-form";
+import { ExperienceLogo } from "@/components/experience-logo";
 import { HomeAboutMotion } from "@/components/home-about-motion";
 import { HomeHero } from "@/components/home-hero";
 import { PortfolioFilter } from "@/components/portfolio-filter";
 import { ScrollTimeline } from "@/components/scroll-timeline";
+import { TrainingLibraryGroups } from "@/components/training-library";
 import {
   certificates,
   education,
@@ -12,7 +14,6 @@ import {
   services,
   skillCategories,
   stories,
-  trainings,
 } from "@/lib/content";
 import { createPageMetadata } from "@/lib/site-seo";
 
@@ -48,23 +49,30 @@ function TimelineCard({
   title,
   place,
   details,
+  logo,
+  logoText,
 }: {
   date: string;
   title: string;
   place: string;
   details?: string[];
+  logo?: string;
+  logoText?: string;
 }) {
   return (
     <article className="timeline-card">
       <span className="timeline-date">{date}</span>
-      <div>
-        <h4>{title}</h4>
-        <p className="timeline-place">{place}</p>
-        {details ? (
-          <ul>
-            {details.map((detail) => <li key={detail}>{detail}</li>)}
-          </ul>
-        ) : null}
+      <div className="timeline-card-main">
+        {logo || logoText ? <ExperienceLogo logo={logo} name={place} initials={logoText ?? ""} /> : null}
+        <div>
+          <h4>{title}</h4>
+          <p className="timeline-place">{place}</p>
+          {details ? (
+            <ul>
+              {details.map((detail) => <li key={detail}>{detail}</li>)}
+            </ul>
+          ) : null}
+        </div>
       </div>
     </article>
   );
@@ -129,22 +137,6 @@ function educationIcon(title: string): TimelineIconName {
     return "engineering";
   }
   return "education";
-}
-
-function trainingDomain(title: string) {
-  if (/leadership|négociations|négociation|collaboration|action communautaire|organisation communautaire/i.test(title)) {
-    return { label: "Leadership & engagement", icon: "leadership" as const, type: "leadership" };
-  }
-  if (/programmation|informatique|web|python|latex/i.test(title)) {
-    return { label: "Informatique & numérique", icon: "digital" as const, type: "technical" };
-  }
-  if (/projets|project management|pilotage|suivi-évaluation|caisse|paie/i.test(title)) {
-    return { label: "Gestion de projets", icon: "engineering" as const, type: "professional" };
-  }
-  if (/éducation|éducat|pédagogiques|formateurs|égalité/i.test(title)) {
-    return { label: "Éducation & citoyenneté", icon: "community" as const, type: "professional" };
-  }
-  return { label: "Développement professionnel", icon: "development" as const, type: "professional" };
 }
 
 function PdfLink({ filename, label = "Consulter le document" }: { filename: string; label?: string }) {
@@ -313,41 +305,15 @@ export default function Home() {
             </div>
             <div className="training-block home-training-block">
               <div className="subsection-heading">
-                <span className="eyebrow">Se former en continu</span>
-                <h3>Formations complémentaires</h3>
+                <span className="eyebrow">Autres formations</span>
+                <h3>Apprendre et développer de nouvelles compétences</h3>
               </div>
-              <ScrollTimeline variant="training" label="Timeline des formations continues">
-                {trainings.map((item, index) => {
-                  const domain = trainingDomain(item.title);
-                  const trainingType = item.certificate ? "certifying" : domain.type;
-
-                  return (
-                    <div
-                      className="scroll-timeline-entry"
-                      data-timeline-item
-                      data-side={["left", "right", "right", "left"][index % 4]}
-                      data-timeline-position={index % 8}
-                      key={item.title}
-                      role="listitem"
-                    >
-                      <span className="scroll-timeline-node">
-                        <TimelineIcon name={item.certificate ? "certification" : domain.icon} />
-                      </span>
-                      <span className="scroll-timeline-connector" aria-hidden="true" />
-                      <article className={`scroll-timeline-card training-timeline-card training-type-${trainingType}`}>
-                        <div className="training-timeline-meta">
-                          <span className="scroll-timeline-date">{item.date}</span>
-                          <span className="training-domain">{domain.label}</span>
-                          {item.certificate ? <span className="training-certificate-badge">Certifiante</span> : null}
-                        </div>
-                        <h4>{item.title}</h4>
-                        <p>{item.organization}</p>
-                        {item.certificate ? <PdfLink filename={item.certificate} label="Voir l’attestation" /> : null}
-                      </article>
-                    </div>
-                  );
-                })}
-              </ScrollTimeline>
+              <TrainingLibraryGroups limitPerCategory={6} showAllLinks />
+              <div className="training-library-more">
+                <a className="button button-outline" href="/formations">
+                  Voir toutes les formations <span aria-hidden="true">→</span>
+                </a>
+              </div>
             </div>
           </div>
         </section>

@@ -1,19 +1,15 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { interests, skillCategories, trainings } from "@/lib/content";
+import { getTrainingCertificateUrl, interests, skillCategories, trainings } from "@/lib/content";
 
 type ProfileModalContent = {
   label: string;
   title: string;
   summary: string;
   points: string[];
-  certificate?: string;
+  certificateUrl?: string;
 };
-
-function certificateHref(filename: string) {
-  return `/documents_pdf/${encodeURIComponent(filename)}`;
-}
 
 export function ProfileHighlights() {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -102,7 +98,7 @@ export function ProfileHighlights() {
                     title: training.title,
                     summary: training.organization,
                     points: [],
-                    certificate: training.certificate,
+                    certificateUrl: getTrainingCertificateUrl(training),
                   })
                 }
               >
@@ -150,10 +146,10 @@ export function ProfileHighlights() {
                 ))}
               </ul>
             ) : null}
-            {activeContent.certificate ? (
+            {activeContent.certificateUrl ? (
               <a
                 className="button button-primary"
-                href={certificateHref(activeContent.certificate)}
+                href={activeContent.certificateUrl}
                 target="_blank"
                 rel="noreferrer"
               >

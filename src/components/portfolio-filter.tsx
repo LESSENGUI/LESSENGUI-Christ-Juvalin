@@ -4,7 +4,12 @@ import Image from "next/image";
 import { useMemo, useState } from "react";
 import { projects, publications } from "@/lib/content";
 
-const baseCategories = ["Tous", "Applications", "Produits", "Certificats"] as const;
+const baseCategories = [
+  "Tous",
+  "Applications",
+  "Certificats",
+  "Distinctions & attestations",
+] as const;
 
 const publicationProjects = publications.map((publication) => ({
   title: publication.title,
@@ -52,10 +57,19 @@ export function PortfolioFilter({ includePublishedWorks = false }: { includePubl
 
       <div className="project-grid">
         {visibleProjects.map((project) => {
+          const isPdf = project.image?.toLowerCase().endsWith(".pdf");
+          const isCertificate = project.category === "Certificats";
+          const opensAsset = project.href?.startsWith("/img/nouveaux-certificats/");
           const card = (
             <>
-              <div className={`project-image${project.image ? "" : " project-image-placeholder"}`}>
-                {project.image ? (
+              <div className={`project-image${project.image ? "" : " project-image-placeholder"}${isCertificate ? " project-image-certificate" : ""}`}>
+                {isPdf ? (
+                  <div className="project-document-preview" aria-hidden="true">
+                    <span>PDF</span>
+                    <strong>Attestation</strong>
+                    <small>Document officiel</small>
+                  </div>
+                ) : project.image ? (
                   <Image
                     src={project.image}
                     alt=""
@@ -80,8 +94,8 @@ export function PortfolioFilter({ includePublishedWorks = false }: { includePubl
               className="project-card"
               href={project.href}
               key={project.title}
-              target={project.href.startsWith("http") ? "_blank" : undefined}
-              rel={project.href.startsWith("http") ? "noopener noreferrer" : undefined}
+              target={project.href.startsWith("http") || opensAsset ? "_blank" : undefined}
+              rel={project.href.startsWith("http") || opensAsset ? "noopener noreferrer" : undefined}
             >
               {card}
             </a>

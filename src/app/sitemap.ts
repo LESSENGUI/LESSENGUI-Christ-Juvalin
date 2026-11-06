@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { projectDetails, serviceDetails, storyDetails } from "@/lib/content";
+import { projectDetails, serviceDetails, storyDetails, trainings } from "@/lib/content";
 import { SITE_URL } from "@/lib/site-seo";
 
 const mainRoutes = [
@@ -8,6 +8,7 @@ const mainRoutes = [
   "/parcours",
   "/experiences",
   "/projets",
+  "/formations",
   "/services",
   "/engagements",
   "/contact",
@@ -34,6 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...projectDetails.map((project) => `/portfolio/${project.slug}`),
     ...serviceDetails.map((service) => `/services/${service.slug}`),
     ...storyDetails.map((story) => `/stories/${story.slug}`),
+    ...trainings.map((training) => `/formations/${training.slug}`),
   ];
 
   return routes.map((route) => ({

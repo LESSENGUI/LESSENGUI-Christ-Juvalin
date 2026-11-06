@@ -2,14 +2,15 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { CinematicHero } from "@/components/cinematic-hero";
 import { ContactForm } from "@/components/contact-form";
+import { ExperienceLogo } from "@/components/experience-logo";
 import { PortfolioFilter } from "@/components/portfolio-filter";
 import { ProfileHighlights } from "@/components/profile-highlights";
 import { createPageMetadata } from "@/lib/site-seo";
 import {
-  aiProfiles,
   associativeCommitments,
   education,
   experiences,
+  getTrainingCertificateUrl,
   otherAssociativeRoles,
   resumeDocuments,
   services,
@@ -196,21 +197,28 @@ function TimelineCard({
   title,
   place,
   details,
+  logo,
+  logoText,
 }: {
   date: string;
   title: string;
   place: string;
   details?: string[];
+  logo?: string;
+  logoText?: string;
 }) {
   return (
     <article className="timeline-card">
       <span className="timeline-date">{date}</span>
-      <div>
-        <h4>{title}</h4>
-        <p className="timeline-place">{place}</p>
-        {details ? (
-          <ul>{details.map((detail) => <li key={detail}>{detail}</li>)}</ul>
-        ) : null}
+      <div className="timeline-card-main">
+        {logo || logoText ? <ExperienceLogo logo={logo} name={place} initials={logoText ?? ""} /> : null}
+        <div>
+          <h4>{title}</h4>
+          <p className="timeline-place">{place}</p>
+          {details ? (
+            <ul>{details.map((detail) => <li key={detail}>{detail}</li>)}</ul>
+          ) : null}
+        </div>
       </div>
     </article>
   );
@@ -341,10 +349,10 @@ function JourneyPage() {
                 <span>{item.date}</span>
                 <h4>{item.title}</h4>
                 <p>{item.organization}</p>
-                {item.certificate ? (
+                {getTrainingCertificateUrl(item) ? (
                   <a
                     className="text-link"
-                    href={`/documents_pdf/${encodeURIComponent(item.certificate)}`}
+                    href={getTrainingCertificateUrl(item)}
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -379,40 +387,6 @@ function ExperiencesPage() {
   );
 }
 
-function AIProjectSection() {
-  return (
-    <section className="section ai-section" id="intelligence-artificielle">
-      <div className="container">
-        <SectionHeading eyebrow="IA & automatisation" title="Des assistants conçus pour des usages précis">
-          Les profils, fonctionnalités et résultats attendus des assistants sont désormais regroupés dans cette page Projets.
-        </SectionHeading>
-        <div className="ai-project-grid">
-          {aiProfiles.map((ai) => (
-            <article className="ai-project-card" key={ai.slug}>
-              <div className="ai-project-heading">
-                <Image src={ai.image} alt="" width={72} height={72} />
-                <div><span className="eyebrow">Assistant IA</span><h3>{ai.name}</h3></div>
-              </div>
-              <p>{ai.description}</p>
-              <p>{ai.summary}</p>
-              <p>{ai.overview}</p>
-              <h4>Fonctionnalités clés</h4>
-              <ul>{ai.features.map((feature) => <li key={feature}>{feature}</li>)}</ul>
-              <h4>Résultats recherchés</h4>
-              <ul>{ai.outcomes.map((outcome) => <li key={outcome}>{outcome}</li>)}</ul>
-              <div className="ai-project-metrics">
-                {ai.metrics.map((metric) => (
-                  <div key={metric.label}><span>{metric.label}</span><strong>{metric.value}</strong></div>
-                ))}
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function ProjectsPage() {
   return (
     <>
@@ -424,7 +398,6 @@ function ProjectsPage() {
           <PortfolioFilter includePublishedWorks />
         </div>
       </section>
-      <AIProjectSection />
       <section className="section experiences-section">
         <div className="container">
           <SectionHeading eyebrow="Curriculum vitæ" title="Télécharger les CV">
